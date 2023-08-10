@@ -15,6 +15,7 @@ function Products({ category, sort, filter }) {
   console.log(category);
   console.log(sort);
   console.log(filter);
+  // filter.color = "navy blue";
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -28,25 +29,43 @@ function Products({ category, sort, filter }) {
       );
 
       setProducts(res.data);
+      console.log(products);
     };
 
     getProducts();
   }, [category]);
 
   useEffect(() => {
-    filter &&
+    category &&
       setFilteredProducts(
-        Object.entries(products).filter((item) => {
-          if (filter.color && filter.size)
-            return item.color === filter.color && item.size === filter.size;
-          else if (filter.color) return item.color === filter.color;
-          return image.size === filter.size;
+        products.filter((item) => {
+          return Object.entries(filter).every(([key, value]) =>
+            item[key].includes(value)
+          );
         })
       );
-  }, [filter, sort]);
+
+    console.log(filteredProducts);
+  }, [products, category, filter]);
+
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProducts((prev) => {
+        return [...prev].sort((a, b) => a.createdAt - b.createdAt);
+      });
+    } else if (sort === "asc") {
+      setFilteredProducts((prev) => {
+        return [...prev].sort((a, b) => a.price - b.price);
+      });
+    } else {
+      setFilteredProducts((prev) => {
+        return [...prev].sort((a, b) => b.price - a.price);
+      });
+    }
+  }, [sort]);
   return (
     <Container>
-      {products.map((item) => (
+      {filteredProducts.map((item) => (
         <Product key={item.id} item={item} />
       ))}
     </Container>

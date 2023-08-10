@@ -58,7 +58,7 @@ function ProductList() {
             <Option disabled>Color</Option>
             <Option>White</Option>
             <Option>Red</Option>
-            <Option>Blue</Option>
+            <Option>navy blue</Option>
             <Option>Blue</Option>
             <Option>Yellow</Option>
           </Select>
@@ -75,8 +75,8 @@ function ProductList() {
           <FilterText>Sort Products: </FilterText>
           <Select onChange={(e) => setSort(e.target.value)}>
             <Option value="newest">Newest</Option>
-            <Option value="lowest">Low To High</Option>
-            <Option value="hightest">High To Low</Option>
+            <Option value="asc">Low To High</Option>
+            <Option value="dsc">High To Low</Option>
           </Select>
         </Filter>
       </FilterContainer>
