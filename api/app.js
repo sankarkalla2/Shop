@@ -11,6 +11,7 @@ const userRoute = require('./routes/user');
 const productRoute = require('./routes/product');
 const ordersRoute = require('./routes/order');
 const stripeRoute = require('./routes/stripe')
+const cartRoute = require('./routes/cart');
 
 const MONGO_URL = process.env.MONGO_URL
 const PORT = process.env.PORT || 5000
@@ -26,7 +27,8 @@ app.use('/api/v1', authRoute);
 app.use('/api/v1/users', userRoute)
 app.use('/api/v1/products', productRoute);
 app.use('/api/v1/orders', ordersRoute);
-app.use('/api/v1/checkout', stripeRoute)
+app.use('/api/v1/checkout', stripeRoute);
+app.use('/api/v1/cart', cartRoute)
 
 
 app.listen(PORT, () => {

@@ -40,11 +40,13 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 })
 
 //get product
-router.get('/:id', verifyTokenAndAuthorization, async (req, res) => {
+router.get('/:id', async (req, res) => {
 
   try {
     const product = await ProductSchema.findOne({ _id: req.params.id });
 
+    console.log(req.user)
+    console.log('hello worl')
     res.status(200).json(product)
 
   } catch (err) { res.status(500).json({ msg: err.message }) }

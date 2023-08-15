@@ -1,5 +1,10 @@
-import styled from 'styled-components'
-import { AiOutlineShoppingCart, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai'
+import styled from "styled-components";
+import {
+  AiOutlineShoppingCart,
+  AiOutlineSearch,
+  AiOutlineHeart,
+} from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
   position: absolute;
@@ -12,11 +17,10 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   background-color: gray;
-  background-color: rgba(0, 0, 0, .2);
-  transition: all .5s ease;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
   opacity: 0;
-
-`
+`;
 
 const Container = styled.div`
   flex: 1;
@@ -30,26 +34,25 @@ const Container = styled.div`
   padding: 20px;
   position: relative;
 
-
   &:hover ${Info} {
     opacity: 1;
   }
-`
+`;
 
 const Circle = styled.div`
   height: 200px;
   width: 200px;
   border-radius: 50%;
   background-color: white;
-  opacity: .4;
+  opacity: 0.4;
   position: absolute;
-`
+`;
 
 const Image = styled.img`
   height: 75%;
   object-fit: contain;
   z-index: 2;
-`
+`;
 
 const Icon = styled.div`
   width: 35px;
@@ -61,26 +64,34 @@ const Icon = styled.div`
   justify-content: center;
   margin: 5px;
   cursor: pointer;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 
   &:hover {
     transform: scale(1.1);
     background-color: #e9f5f5;
   }
-`
+`;
 
 function Product({ item }) {
   return (
     <Container>
-      <Circle/>
-      <Image src={item.img}/>
+      <Circle />
+      <Image src={item.img} />
       <Info>
-        <Icon><AiOutlineShoppingCart/></Icon>
-        <Icon><AiOutlineSearch/></Icon>
-        <Icon><AiOutlineHeart></AiOutlineHeart></Icon>
+        <Icon>
+          <AiOutlineShoppingCart />
+        </Icon>
+        <Link to={`/product/${item._id}`}>
+          <Icon>
+            <AiOutlineSearch />
+          </Icon>
+        </Link>
+        <Icon>
+          <AiOutlineHeart></AiOutlineHeart>
+        </Icon>
       </Info>
     </Container>
-  )
+  );
 }
 
-export default Product
+export default Product;

@@ -3,11 +3,11 @@ const CartSchema = require('../models/Cart')
 const { verifyTokenAndAdmin, verifyTokenAndAuthorization } = require('./verifyToken')
 
 //add cart
-router.post('/', verifyTokenAndAuthorization, async (req, res) => {
+router.post('/', async (req, res) => {
 
   try {
     const cartSchema = new CartSchema(req.body);
-    const cart = await CartSchema.save();
+    const cart = await cartSchema.save();
 
     res.status(200).json(cart);
   } catch (err) { res.status(500).json({ msg: err.message }) }
@@ -15,7 +15,7 @@ router.post('/', verifyTokenAndAuthorization, async (req, res) => {
 
 //update cart
 
-router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
+router.put('/:id', async (req, res) => {
 
   try {
     await CartSchema.findOneAndUpdate({ _id: req.params.id }, { $set: req.body });
@@ -32,7 +32,6 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 
   try {
     const deletedCart = await CartSchema.findOneAndDelete({ _id: req.params.id });
-
     res.status(200).json(deletedCart)
 
   } catch (err) { res.status(500).json({ msg: err.message }) }
@@ -40,11 +39,10 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 })
 
 //get cart
-router.get('/:userId', verifyTokenAndAuthorization, async (req, res) => {
+router.get('/:userId', async (req, res) => {
 
   try {
     const cart = await CartSchema.find({ userId: req.params.userId });
-
     res.status(200).json(cart)
 
   } catch (err) { res.status(500).json({ msg: err.message }) }
@@ -53,7 +51,7 @@ router.get('/:userId', verifyTokenAndAuthorization, async (req, res) => {
 
 
 //get all carts
-router.get('/', verifyTokenAndAdmin, async (req, res) => {
+router.get('/', async (req, res) => {
 
   try {
     const allCarts = await CartSchema.find({});

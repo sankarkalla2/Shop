@@ -50,7 +50,7 @@ function ProductList() {
     <Container>
       <Navbar />
       <Annoucement />
-      <Title>Dresss</Title>
+      <Title>{category}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Product</FilterText>

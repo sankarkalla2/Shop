@@ -12,11 +12,6 @@ const Container = styled.div`
 `;
 
 function Products({ category, sort, filter }) {
-  console.log(category);
-  console.log(sort);
-  console.log(filter);
-  // filter.color = "navy blue";
-
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -29,7 +24,6 @@ function Products({ category, sort, filter }) {
       );
 
       setProducts(res.data);
-      console.log(products);
     };
 
     getProducts();
@@ -44,8 +38,6 @@ function Products({ category, sort, filter }) {
           );
         })
       );
-
-    console.log(filteredProducts);
   }, [products, category, filter]);
 
   useEffect(() => {
@@ -65,9 +57,11 @@ function Products({ category, sort, filter }) {
   }, [sort]);
   return (
     <Container>
-      {filteredProducts.map((item) => (
-        <Product key={item.id} item={item} />
-      ))}
+      {category
+        ? filteredProducts.map((item) => <Product key={item.id} item={item} />)
+        : products
+            .slice(0, 8)
+            .map((item) => <Product key={item.id} item={item} />)}
     </Container>
   );
 }
